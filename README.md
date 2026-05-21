@@ -6,3 +6,5 @@ Browser fontend for Hack RF SDR
 HackRF only RTL-SDR one day perhaps.
 
 As it uses WebUSB likley only Chrome supports it. It will not work on Firefox for example.
+
+Inspired by URH's waterfall and FFT always crashing or just generally going slow.
