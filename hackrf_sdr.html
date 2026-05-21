@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HackRF SDR</title>
+<link rel="stylesheet" href="hackrf_sdr.css">
+</head>
+<body>
+
+<header>
+  <div class="status-dot" id="statusDot"></div>
+  <h1>HACKRF // SDR</h1>
+  <div class="freq-display" id="freqDisplay">434.000<span class="freq-unit">MHz</span></div>
+</header>
+
+<div class="main">
+
+  <!-- sidebar -->
+  <div class="sidebar">
+    <div class="ctrl-group">
+      <label>Device Type</label>
+      <select id="samplerate">
+        <option value="0">HackRF One</option>
+        <option value="1">RTL SDR</option>
+      </select>
+    </div>
+    <div class="ctrl-group">
+      <label>FREQUENCY (Hz)</label>
+      <input id="freq" value="434000000">
+    </div>
+    <div class="ctrl-group">
+      <label>SAMPLE RATE</label>
+      <select id="samplerate">
+        <option value="2000000">2 MHz</option>
+        <option value="5000000">5 MHz</option>
+        <option value="10000000" selected>10 MHz</option>
+      </select>
+    </div>
+    <div class="gain-row">
+      <div class="ctrl-group">
+        <label>LNA</label>
+        <input id="lna" value="32" style="width:100%">
+      </div>
+      <div class="ctrl-group">
+        <label>VGA</label>
+        <input id="vga" value="30" style="width:100%">
+      </div>
+    </div>
+    <div class="ctrl-group">
+      <label>AMP</label>
+      <select id="amp">
+        <option value="0">OFF</option>
+        <option value="1">ON</option>
+      </select>
+    </div>
+
+    <div class="divider"></div>
+
+    <button class="btn btn-connect" id="connectBtn">CONNECT</button>
+    <button class="btn btn-start"   id="startBtn">START RX</button>
+    <button class="btn btn-stop"    id="stopBtn">STOP RX</button>
+
+    <div class="divider"></div>
+
+    <div>
+      <div class="meter-label">SIGNAL LEVEL</div>
+      <div class="meter-bar"><div class="meter-fill" id="meterFill"></div></div>
+      <div class="meter-val" id="meterVal">-- dB</div>
+    </div>
+    <div>
+      <div class="meter-label">RMS</div>
+      <div class="meter-val" id="rmsVal">--</div>
+    </div>
+    <div>
+      <div class="meter-label">PEAK</div>
+      <div class="meter-val" id="peakVal">--</div>
+    </div>
+  </div>
+
+  <!-- plots -->
+  <div class="plots">
+
+    <!-- IQ scope -->
+    <div class="plot-section" style="flex: 0 0 180px;">
+      <div class="plot-title">
+        <span>IQ WAVEFORM</span>
+        <span id="iqInfo">I=<span style="color:var(--green)">■</span> Q=<span style="color:var(--cyan)">■</span></span>
+      </div>
+      <canvas id="scopeCanvas" height="155"></canvas>
+    </div>
+
+    <!-- FFT spectrum -->
+    <div class="plot-section" style="flex: 0 0 180px;">
+      <div class="plot-title">
+        <span>SPECTRUM</span>
+        <span id="fftInfo">FFT 1024</span>
+      </div>
+      <canvas id="fftCanvas" height="155"></canvas>
+    </div>
+
+    <!-- waterfall -->
+    <div class="plot-section" style="flex: 1; min-height: 200px;">
+      <div class="plot-title">
+        <span>WATERFALL</span>
+        <span id="wfInfo">time →</span>
+      </div>
+      <canvas id="wfCanvas"></canvas>
+    </div>
+
+  </div>
+</div>
+
+<!-- log -->
+<div class="log-section" id="logEl"></div>
+
+</body>
+<script src="hackrf_sdr.js"></script>
+</html>
