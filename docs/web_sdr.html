@@ -3,14 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HackRF SDR</title>
-<link rel="stylesheet" href="hackrf_sdr.css">
+<title>Web SDR</title>
+<link rel="stylesheet" href="css/hackrf_sdr.css">
 </head>
 <body>
 
 <header>
   <div class="status-dot" id="statusDot"></div>
-  <h1>HACKRF // SDR</h1>
+  <a href="https://github.com/thomas169/web_hackrf">
+  <h1>WEB-USB // SDR</h1>
+  </a>
   <div class="freq-display" id="freqDisplay">434.000<span class="freq-unit">MHz</span></div>
 </header>
 
@@ -20,9 +22,9 @@
   <div class="sidebar">
     <div class="ctrl-group">
       <label>Device Type</label>
-      <select id="samplerate">
-        <option value="0">HackRF One</option>
-        <option value="1">RTL SDR</option>
+      <select id="device_type">
+        <option value="hackrf">HackRF One</option>
+        <option value="rtlsdr">RTL SDR</option>
       </select>
     </div>
     <div class="ctrl-group">
@@ -35,6 +37,28 @@
         <option value="2000000">2 MHz</option>
         <option value="5000000">5 MHz</option>
         <option value="10000000" selected>10 MHz</option>
+        <option value="20000000">20 MHz</option>
+      </select>
+    </div>
+    <div class="ctrl-group">
+      <label>Bandwidth</label>
+      <select id="bw">
+        <option value="1750000">1.75 MHz</option>
+        <option value="2500000">2.5 MHz</option>
+        <option value="3500000">3.5 MHz</option>
+        <option value="5000000">5 MHz</option>
+        <option value="5500000">5.5 MHz</option>
+        <option value="6000000">6 MHz</option>
+        <option value="7000000">7 MHz</option>
+        <option value="8000000">8 MHz</option>
+        <option value="9000000">9 MHz</option>
+        <option value="10000000" selected>10 MHz</option>
+        <option value="12000000">12 MHz</option>
+        <option value="14000000">14 MHz</option>
+        <option value="15000000">15 MHz</option>
+        <option value="20000000">20 MHz</option>
+        <option value="24000000">24 MHz</option>
+        <option value="28000000">28 MHz</option>
       </select>
     </div>
     <div class="gain-row">
@@ -45,6 +69,10 @@
       <div class="ctrl-group">
         <label>VGA</label>
         <input id="vga" value="30" style="width:100%">
+      </div>
+      <div class="ctrl-group">
+        <label>Gain</label>
+        <input id="gain" value="30" style="width:100%">
       </div>
     </div>
     <div class="ctrl-group">
@@ -60,12 +88,16 @@
     <button class="btn btn-connect" id="connectBtn">CONNECT</button>
     <button class="btn btn-start"   id="startBtn">START RX</button>
     <button class="btn btn-stop"    id="stopBtn">STOP RX</button>
-
+    <button class="btn btn-rec"     id="recBtn">REC IQ</button>
+    
     <div class="divider"></div>
-
+    
+    <!-- meter -->
     <div>
       <div class="meter-label">SIGNAL LEVEL</div>
-      <div class="meter-bar"><div class="meter-fill" id="meterFill"></div></div>
+      <div class="meter-bar">
+        <div class="meter-fill" id="meterFill"></div>
+      </div>
       <div class="meter-val" id="meterVal">-- dB</div>
     </div>
     <div>
@@ -75,6 +107,17 @@
     <div>
       <div class="meter-label">PEAK</div>
       <div class="meter-val" id="peakVal">--</div>
+    </div>
+    <div>
+      <div class="meter-label">TRANSFERS/SEC</div>
+      <div class="meter-bar">
+        <div class="meter-fill" id="tpsFill"></div>
+      </div>
+      <div class="meter-val" id="tpsVal">--</div>
+    </div>
+    <div>
+      <div class="meter-label">MB/SEC</div>
+      <div class="meter-val" id="mbsVal">--</div>
     </div>
   </div>
 
@@ -115,5 +158,8 @@
 <div class="log-section" id="logEl"></div>
 
 </body>
-<script src="hackrf_sdr.js"></script>
+
+<script src="js/rtlsdr.js"></script>
+<script type="module" src="js/websdr.js"></script>
+
 </html>
